@@ -1,8 +1,10 @@
 const express = require ('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground')
+const app = express();
 
 mongoose.connect('mongodb://localhost:27017/monnem-camp', {
   useNewUrlParser: true,
@@ -17,33 +19,34 @@ db.once("open", ()=> {
   console.log("Database connected");
 });
 
-const app = express();
-
 //set the ejs as view engine for express in folder views
+app.set('views', path.join(__dirname + "/views"));
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
 //body Parse
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
+app.engine('ejs', ejsMate);
+
 
 app.get('/', (req, res) => {
   res.render('home');
 });
 app.get('/campgrounds', async (req, res) => {
   const campgrounds = await Campground.find({})
-  res.render('campgrounds/index', { campgrounds });
+  res.render('campgrounds', { campgrounds });
 });
+
 //CREATE new model
 app.get('/campgrounds/new', (req, res) => {
   res.render('campgrounds/new');
 });
+
 //campgrounds/new and POST are coming first than :id
 app.post('/campgrounds', async(req, res)=> {
   const campground = new Campground(req.body.campground);
   await campground.save();
   res.redirect(`/campgrounds/${campground._id}`);
-})
+});
 
 app.get('/campgrounds/:id', async(req, res) => {
   //pass the ID
