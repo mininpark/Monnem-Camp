@@ -1,13 +1,13 @@
 {
   "name": "yelpcamp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "- Middleware are just functions which runs during request (req)/response(res) lifecycle\r - Each middleware has access to the request and response objects\r - Middleware can end the HTTP request by sending back a response with methods like res.send()\r - OR middleware can be chained together, one after another by calling next middleware function()",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Mina Park",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.7",
@@ -16,5 +16,14 @@
     "method-override": "^3.0.0",
     "mongoose": "^6.3.2",
     "morgan": "^1.10.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mininpark/Monnem-Camp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mininpark/Monnem-Camp/issues"
+  },
+  "homepage": "https://github.com/mininpark/Monnem-Camp#readme"
 }
